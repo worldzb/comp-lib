@@ -1,6 +1,6 @@
 # lib-comp
 
-> A Vue.js project
+> vue 组件库
 
 ## Build Setup
 
