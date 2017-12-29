@@ -2,7 +2,7 @@
 * @Author: yang
 * @Date:   2017-12-27 15:15:24
 * @Last Modified by:   worldzb
-* @Last Modified time: 2017-12-29 23:54:23
+* @Last Modified time: 2017-12-30 00:35:08
 */
 
 class DrawImg{
@@ -46,15 +46,28 @@ class DrawImg{
 			event = event || window.event; //兼容处理
 			if(obj.isDregStart){
 				console.log(x+","+y);
-				obj.ctx.clearRect(0, 0, obj.canvas.width,obj.canvas.height);
 				obj.beginX=event.clientX-x;
 				obj.beginY=event.clientY-y;
+				obj.ctx.clearRect(0, 0, obj.canvas.width,obj.canvas.height);
 				obj.ctx.drawImage(obj.Img,obj.beginX,obj.beginY);
 
 			}
 		});
 		this.canvas.addEventListener('mouseup',()=>{
 			obj.isDregStart=false;
+		});
+		this.canvas.addEventListener('mouseout',()=>{
+			obj.isDregStart=false;
+		});
+		this.canvas.addEventListener('mousewheel',(event)=>{
+			obj.ctx.clearRect(0, 0, obj.canvas.width,obj.canvas.height);
+			if(event.wheelDelta>0){
+				obj.ctx.drawImage(obj.Img,obj.beginX,obj.beginY,obj.Img.width,obj.Img.height,obj.beginX,obj.beginY,obj.Img.width*1.1,obj.Img.height*1.1);
+				console.log('放大');
+			}else{
+				obj.ctx.drawImage(obj.Img,obj.beginX,obj.beginY,obj.Img.width,obj.Img.height,obj.beginX,obj.beginY,obj.Img.width/2,obj.Img.height/2);
+				console.log('缩小');
+			}
 		});
 	}
 	/**
