@@ -1,8 +1,8 @@
 /*
 * @Author: yang
 * @Date:   2017-12-27 15:15:24
-* @Last Modified by:   yang
-* @Last Modified time: 2017-12-29 16:39:26
+* @Last Modified by:   worldzb
+* @Last Modified time: 2017-12-29 23:54:23
 */
 
 class DrawImg{
@@ -15,17 +15,48 @@ class DrawImg{
 		this.beginX=0;//画图初始坐标X
 		this.beginY=0;//画图初始坐标X
 		this.beginPoint=[0,0];//画图初始坐标点
+
+		this.isDregStart=false;//是否执行拖拽
+
 		this.Img=new Image();
 		this.createCanvas();
+		this.addEvent();
 	}
 	/**
 	 * 创建canvas画板对象
 	 */
 	createCanvas(){
 		this.canvas=document.getElementById(this.context);
+		console.log(this.canvas.offsetLeft);
 		this.ctx=this.canvas.getContext('2d');
 	}
+	//绑定事件
+	addEvent(){
+		var obj=this;
+		var x=0;
+		var y=0;
+		var point=[0,0];
+		this.canvas.addEventListener('mousedown',(event)=>{
+			obj.isDregStart=true;
+			event = event || window.event; //兼容处理
+			x=event.clientX-obj.beginX;
+			y=event.clientY-obj.beginY;
+		});
+		this.canvas.addEventListener('mousemove',(event)=>{
+			event = event || window.event; //兼容处理
+			if(obj.isDregStart){
+				console.log(x+","+y);
+				obj.ctx.clearRect(0, 0, obj.canvas.width,obj.canvas.height);
+				obj.beginX=event.clientX-x;
+				obj.beginY=event.clientY-y;
+				obj.ctx.drawImage(obj.Img,obj.beginX,obj.beginY);
 
+			}
+		});
+		this.canvas.addEventListener('mouseup',()=>{
+			obj.isDregStart=false;
+		});
+	}
 	/**
 	 * 加载图片
 	 */
@@ -60,7 +91,6 @@ class DrawImg{
 			this.ctx.drawImage(this.Img,this.beginX,this.beginY);
 		}
 	}
-
 	test(){
 		this.ctx.fillRect(25,25,100,100);
 		console.log(this.canvas.width);
@@ -68,6 +98,7 @@ class DrawImg{
 		console.log(this.canvas.width-this.Img.width);
 		console.log(this.beginX);
 	}
+
 }
 
 export default DrawImg;

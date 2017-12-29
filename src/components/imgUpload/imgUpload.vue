@@ -15,6 +15,7 @@
 			return{
 				drawImg:'',
 				filePath:"",
+				isDregStart:false,
 				testString:'lalal',
 			}
 		},
@@ -30,17 +31,9 @@
 				}
 				this.drawImg.drawCenter();
 			},
-			fileShow(){
-				let fileReader=new FileReader();
-				let ipt=document.getElementById('ipt-file').files[0];
-				let imgshow=document.getElementById('imgshow');
-				fileReader.readAsDataURL(ipt);
-				fileReader.onloadend=()=>{
-					imgshow.src=fileReader.result;
-				}
-			},
 			test(){
-				this.drawImg.test()
+				console.log('dragstart');
+				//this.drawImg.test()
 				//this.drawImg.test();
 			},
 			test2(){
