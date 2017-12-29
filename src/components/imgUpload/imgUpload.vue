@@ -1,29 +1,32 @@
 <template>
 	<div id="imgUpload">
 		<input id="ipt-file" class="ipt-file" type="file" name="" @change="fileChange()">
-		<img id="imgshow" src="">
+		<button @click="test()">测试</button>
+		<button @click="test2()">测试2</button>
 		<canvas id="canvas-img" width='400' height="300" style="background: #ccc"></canvas>
 	</div>
 </template>
 
 <script>
-	import DrawImage from './DrawImage.js';
+	import DrawImg from './DrawImage.js';
 	export default{
 		name:'imgUpload',
 		data(){
 			return{
+				drawImg:Object,
 				filePath:"",
+				testString:'lalal',
 			}
 		},
 		created:function(){
-
+			
+		},
+		mounted(){
 		},
 		methods:{
 			fileChange:function(){
-				//this.fileShow()
-				let url=$('#ipt-file').val();
-				let iu=new DrawImage('ipt-file','canvas-img');
-				iu.loadImg();
+				this.drawImg=new DrawImg('ipt-file','canvas-img');
+				this.drawImg.drawCenter();
 			},
 			fileShow(){
 				let fileReader=new FileReader();
@@ -33,6 +36,14 @@
 				fileReader.onloadend=()=>{
 					imgshow.src=fileReader.result;
 				}
+			},
+			test(){
+				this.drawImg.test()
+				//this.drawImg.test();
+			},
+			test2(){
+				this.drawImg.drawCenter();
+				console.log(this.drawImg.drawCenter());
 			}
 		}
 	}
@@ -41,7 +52,5 @@
 
 <style type="text/css">
 	.ipt-file{
-		width: 100px;
-		height: 100px;
 	}
 </style>
