@@ -13,7 +13,7 @@
 		name:'imgUpload',
 		data(){
 			return{
-				drawImg:Object,
+				drawImg:'',
 				filePath:"",
 				testString:'lalal',
 			}
@@ -25,7 +25,9 @@
 		},
 		methods:{
 			fileChange:function(){
-				this.drawImg=new DrawImg('ipt-file','canvas-img');
+				if(this.drawImg===''){
+					this.drawImg=new DrawImg('ipt-file','canvas-img');
+				}
 				this.drawImg.drawCenter();
 			},
 			fileShow(){
