@@ -14,9 +14,15 @@
 		</div>
 		<div id="submitBox" v-show="isFileSelect">
 			<button class="btn btn-success btn-block btn-sm"  
-			title="图片将被裁切压缩" @click="uploadImg()">上传</button>
+			title="图片将被裁切压缩" @click="uploadImg()">
+				<span v-if="!isUploading">上传</span> 
+				<span v-else><i class="fa fa-spinner fa-spin"></i>&nbsp;上传中</span> 
+			</button>
 			<button class="btn btn-default btn-block btn-sm" 
-			title="图片未被裁切压缩" @click="uploadImgPri()">上传原图</button>
+			title="图片未被裁切压缩" @click="uploadImgPri()">
+				<span v-if="!isUploading2">上传原图</span> 
+				<span v-else><i class="fa fa-spinner fa-spin"></i>&nbsp;上传中</span> 
+			</button>
 		</div>
 	</div>
 </template>
@@ -24,20 +30,23 @@
 
 <script>
 	import DrawImg from './DrawImage.js';
+	import Convert from './Convert.js';
 	export default{
 		name:'imgUpload',
 		data(){
 			return{
-				drawImg:'',
-				filePath:"",
-				isDregStart:false,
-				isFileSelect:false,
-				image:'',
-				testString:'lalal',
+				drawImg:'',//画图对象
+				filePath:"",//文件路径
+				isFileSelect:false,//文件是否选择打开
+				isUploading:false,//文件上传中 状态
+				isUploading2:false,//源文件上传中状态
+				uploadUrl:'',//图片上传地址
+				image:'',//图片预览src
+				testString:'lalal',//测试字符串
 			}
 		},
 		created:function(){
-			
+			this.uploadUrl="http://localhost/"
 		},
 		mounted(){
 		},
@@ -51,23 +60,29 @@
 					this.drawImg=new DrawImg('ipt-file','canvas-img');
 				}
 				this.drawImg.drawCenter();
+				//事件委托
 				this.drawImg.eventUpdate=()=>{
 					that.image=that.drawImg.rtImageData();//获取canvas数据
 				}
 				//this.image=this.drawImg.rtImageData();
 				this.isFileSelect=true;
 			},
+			//裁切压缩图上传
 			uploadImg:function(){
 				//图片上传
+				this.isUploading=true;
+				console.log(Convert.test(this.image));
+			},
+			//原图上传
+			uploadImgPri:function(){
+				//原始图片上传
+				this.isUploading2=true;
 				var that=this;
-				this.$http.post(this.imgUrl,new FormData($('#fileUpload')[0]),{
+				this.$http.post(this.uploadUrl,new FormData($('#fileUpload')[0]),{
 					emulateJSON: true,
 				}).then((res)=>{
 					console.log(res);
 				});
-			},
-			uploadImgPri:function(){
-				//原始图片上传
 			}
 		}
 	}

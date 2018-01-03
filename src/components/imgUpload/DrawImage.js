@@ -2,7 +2,7 @@
 * @Author: yang
 * @Date:   2017-12-27 15:15:24
 * @Last Modified by:   yang
-* @Last Modified time: 2017-12-30 13:13:40
+* @Last Modified time: 2018-01-03 13:39:24
 */
 
 class DrawImg{
@@ -64,11 +64,12 @@ class DrawImg{
 		//鼠标弹起事件
 		this.canvas.addEventListener('mouseup',()=>{
 			obj.isDregStart=false;
-			obj.eventUpdate();//在鼠标弹起时，外部事件
+			obj.eventUpdate();//在鼠标弹起时，调用外部事件
 		});
 		//鼠标移出canvas
 		this.canvas.addEventListener('mouseout',()=>{
 			obj.isDregStart=false;
+			obj.eventUpdate();//在鼠标移出时，调用外部事件
 		});
 		//鼠标滚轮事件，控制图片的放大缩小
 		this.canvas.addEventListener('mousewheel',(event)=>{
