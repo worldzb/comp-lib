@@ -1,6 +1,6 @@
 <template>
 	<div id="imgUpload">
-		<form id="fileUpload" accept-charset="utf-8" enctype="multipart/form-data">
+		<form id="fileUpload" accept-charset="utf-8" enctype="multipart/form-data" method="post">
 			<input id="ipt-file" class="ipt-file" type="file" name="imgFile" @change="fileChange()" style="outline:none">
 		</form>
 		<canvas id="canvas-img" width='501' height="400" v-model="image" v-show="isFileSelect">
@@ -45,8 +45,14 @@
 				testString:'lalal',//测试字符串
 			}
 		},
+		props:{
+			URL:{
+				type:String,
+				default:"null",
+			},
+		},
 		created:function(){
-			this.uploadUrl="http://localhost/www/lt/admin.php/ImgUpload/test"
+			this.uploadUrl=this.URL;
 		},
 		mounted(){
 		},
@@ -71,7 +77,15 @@
 			uploadImg:function(){
 				//图片上传
 				this.isUploading=true;
-				console.log(Convert.test(this.image));
+				let dataBlob=Convert.dataURL2formData(this.image);
+				let formData=new FormData();
+				formData.append('imgFile',dataBlob);
+				this.$http.post(this.uploadUrl,formData,{
+					emulateJSON: true,
+				}).then((res)=>{
+					//var red=eval(res.body);
+					console.log(res);
+				});
 			},
 			//原图上传
 			uploadImgPri:function(){

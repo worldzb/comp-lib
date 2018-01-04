@@ -1,5 +1,5 @@
 <template>
   <div id="app">
-    <imgUpload></imgUpload>
+    <imgUpload URL="http://localhost/www/lt/admin.php/ImgUpload/test"></imgUpload>
   </div>
 </template>
