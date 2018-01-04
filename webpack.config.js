@@ -3,11 +3,13 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: './src/main.js',
+  //entry: './src/components/imgUpload/imgUpload.js',
+  //entry: './src/components/Test/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     filename: 'build.js',
-    library:'libComp',
+    library:'imgUpload',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

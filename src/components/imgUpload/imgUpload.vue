@@ -1,7 +1,7 @@
 <template>
 	<div id="imgUpload">
 		<form id="fileUpload" accept-charset="utf-8" enctype="multipart/form-data">
-			<input id="ipt-file" class="ipt-file" type="file" name="" @change="fileChange()" style="outline:none">
+			<input id="ipt-file" class="ipt-file" type="file" name="imgFile" @change="fileChange()" style="outline:none">
 		</form>
 		<canvas id="canvas-img" width='501' height="400" v-model="image" v-show="isFileSelect">
 			fsda
@@ -46,7 +46,7 @@
 			}
 		},
 		created:function(){
-			this.uploadUrl="http://localhost/"
+			this.uploadUrl="http://localhost/www/lt/admin.php/ImgUpload/test"
 		},
 		mounted(){
 		},
@@ -81,6 +81,7 @@
 				this.$http.post(this.uploadUrl,new FormData($('#fileUpload')[0]),{
 					emulateJSON: true,
 				}).then((res)=>{
+					//var red=eval(res.body);
 					console.log(res);
 				});
 			}

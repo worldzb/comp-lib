@@ -1,8 +1,8 @@
 /*
 * @Author: yang
 * @Date:   2017-12-27 15:15:24
-* @Last Modified by:   yang
-* @Last Modified time: 2018-01-03 13:39:24
+* @Last Modified by:   worldzb
+* @Last Modified time: 2018-01-04 21:33:55
 */
 
 class DrawImg{
@@ -74,6 +74,8 @@ class DrawImg{
 		//鼠标滚轮事件，控制图片的放大缩小
 		this.canvas.addEventListener('mousewheel',(event)=>{
 			obj.ctx.clearRect(0, 0, obj.canvas.width,obj.canvas.height);
+			//obj.beginX=(obj.canvas.width-obj.imgWidth)/2;居中放大
+			//obj.beginY=(obj.canvas.height-obj.imgHeight)/2;
 			if(event.wheelDelta>0){
 				obj.imgWidth*=(1+this.multiple);
 				obj.imgHeight*=(1+this.multiple);
