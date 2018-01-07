@@ -63,9 +63,13 @@
 			fileChange:function(){
 				var that=this;
 				if(this.drawImg===''){
-					this.drawImg=new DrawImg('ipt-file','canvas-img');
+					this.drawImg=new DrawImg({
+						ipt:'ipt-file',
+						context:'canvas-img',
+						multiple:0.04,
+					});
 				}
-				this.drawImg.drawCenter();
+				this.drawImg.drawFill();
 				//事件委托
 				this.drawImg.eventUpdate=()=>{
 					that.image=that.drawImg.rtImageData();//获取canvas数据
