@@ -2,7 +2,7 @@
 * @Author: yang
 * @Date:   2017-12-27 15:15:24
 * @Last Modified by:   worldzb
-* @Last Modified time: 2018-01-07 15:13:47
+* @Last Modified time: 2018-01-07 20:00:06
 */
 
 
@@ -93,13 +93,18 @@ class DrawImg{
 		//鼠标滚轮事件，控制图片的放大缩小
 		this.canvas.addEventListener('mousewheel',(event)=>{
 			event = event || window.event; //兼容处理
-			x=event.clientX;
-			y=event.clientY;
+			x=event.clientX-this.canvas.offsetLeft;
+			y=event.clientY-this.canvas.offsetTop;
 			obj.ctx.clearRect(0, 0, obj.canvas.width,obj.canvas.height);
 			if(event.wheelDelta>0){
 				//图片放大
 				obj.imgWidth*=(1+this.multiple);
 				obj.imgHeight*=(1+this.multiple);
+				
+				console.log('x:'+x);
+				console.log('y:'+y);
+				console.log('left:'+this.canvas.offsetLeft);
+				console.log('top:'+this.canvas.offsetTop);
 				//计算初始坐标，使放大以鼠标指针为中心
 				obj.beginX+=(obj.imgWidth*this.multiple)*((obj.beginX-x)/obj.imgWidth);
 				obj.beginY+=(obj.imgHeight*this.multiple)*((obj.beginY-y)/obj.imgHeight);
