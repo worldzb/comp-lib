@@ -81,13 +81,15 @@
 			uploadImg:function(){
 				//图片上传
 				this.isUploading=true;
+				let that=this;
 				let dataBlob=Convert.dataURL2formData(this.image);
 				let formData=new FormData();
 				formData.append('imgFile',dataBlob);
 				this.$http.post(this.uploadUrl,formData,{
 					emulateJSON: true,
 				}).then((res)=>{
-					//var red=eval(res.body);
+					that.isUploading=false;
+					that.$emit('uploadend',res);
 					console.log(res);
 				});
 			},
@@ -99,7 +101,9 @@
 				this.$http.post(this.uploadUrl,new FormData($('#fileUpload')[0]),{
 					emulateJSON: true,
 				}).then((res)=>{
+					this.isUploading2=false;
 					//var red=eval(res.body);
+					that.$emit('uploadend',res);
 					console.log(res);
 				});
 			}
