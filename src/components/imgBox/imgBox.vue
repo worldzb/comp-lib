@@ -1,13 +1,44 @@
 <template>
-	<div id="imgBox" :class="className" :style="sty" @blur="focus()" @mouseover="toolShow()" @mouseout="toolHide()">
+	<div id="imgBox" :class="boxClassName" :style="sty" @mouseover="toolShow()" @mouseout="toolHide()">
 		<div class="imgTool" v-if="isToolShow">
 			<ul>
-				<li><i class="fa fa-th-list"></i></li>
-				<li><i class="fa fa-th-list"></i></li>
-				<li>{{isToolShow}}</li>
+				<li>
+					<span id="dropdownMenu1" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-cog"></i>
+					</span>
+					<div class="dropdown-menu dropdown-list" role="menu">
+						<div class="dropdown-item" @click="changeImgClass('img-rounded')">
+							<i class="fa fa-square-o"></i>&nbsp;&nbsp;矩形
+						</div>
+						<div class="dropdown-item" @click="changeImgClass('img-circle')">
+							<i class="fa fa-circle-o"></i>&nbsp;&nbsp;圆形
+						</div>
+						<div class="dropdown-item" @click="changeImgClass('img-thumbnail')">
+							<i class="fa fa-square"></i>&nbsp;&nbsp;缩略图
+						</div>
+					</div>
+				</li>
+
+				<li>
+					<span id="dropdownMenu2" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-photo"></i>
+					</span>
+					<div class="dropdown-menu dropdown-list" role="menu">
+						<div class="dropdown-item" @click="changBoxClass('imgBox-small')">
+							<i class="fa fa-lg fa-photo"></i>&nbsp;&nbsp;小
+						</div>
+						<div class="dropdown-item" @click="changBoxClass('imgBox-mid')">
+							<i class="fa fa-2x fa-photo"></i>&nbsp;&nbsp;中
+						</div>
+						<div class="dropdown-item" @click="changBoxClass('imgBox-big')">
+							<i class="fa fa-3x fa-photo"></i>&nbsp;&nbsp;大
+						</div>
+					</div>
+				</li>
+				<!-- <li><i class="fa fa-th-list"></i></li> -->
 			</ul>
 		</div>
-		<img class="imgNode" :src="url">
+		<img :class="imgClassName" :src="url">
 	</div>
 </template>
 
@@ -15,8 +46,9 @@
 	export default{
 		data(){
 			return{
-				className:'test',
-				isToolShow:true,
+				imgClassName:'img-rounded',
+				boxClassName:"imgBox-small",
+				isToolShow:false,
 				url:'',
 				sty:{
 
@@ -33,17 +65,22 @@
 			}
 		},
 		methods:{
-			focus:()=>{
+			focus(){
 				alert('fd');
 			},
-			toolShow:()=>{
+			toolShow(){
 				//alert('fd');
-				console.log('true');
+				//console.log(isToolShow);
 				this.isToolShow=true;
 			},
-			toolHide:()=>{
-				console.log('false');
+			toolHide(){
 				this.isToolShow=false;
+			},
+			changeImgClass($className){
+				this.imgClassName=$className;
+			},
+			changBoxClass($className){
+				this.boxClassName=$className;
 			}
 		}
 	}
@@ -52,25 +89,29 @@
 
 
 <style type="text/css">
-	#imgBox{
-		width: 200px;height: 200px;background: #eee;overflow: hidden;
-		padding: 0;margin: 0;
-	}
-	.test{
-		background: red;border: 1px solid #000
-	}
 	#imgBox img{
 		width: 100%;height: 100%
 	}
-
-	.imgNode{
-		z-index: 0;
-		opacity: 1
+	.imgBox-small{
+		width: 200px;height: 200px;background: #eee;overflow: hidden;
+		padding: 0;margin: 0;
 	}
+	.imgBox-mid{
+		width: 400px;height: 400px;background: #eee;overflow: hidden;
+		padding: 0;margin: 0;
+	}
+	.imgBox-big{
+		width: 600px;height: 600px;background: #eee;overflow: hidden;
+		padding: 0;margin: 0;
+	}
+
+	
+
+
 	.imgTool{
 		position: absolute;
 		background: #666;
-		opacity: 0.8;
+		opacity: 0.95;
 		z-index: 100
 	}
 	.imgTool ul{
@@ -85,5 +126,19 @@
 	}
 	.imgTool ul li:hover{
 		background: #eee;color:#333;
+	}
+
+
+	.dropdown-list{
+		width: 40px;padding: 0
+	}
+	.dropdown-item{
+		padding: 5px;
+		text-align: left;
+		cursor: pointer;
+	}
+	.dropdown-item:hover{
+		color:#fff;
+		background-color: #333
 	}
 </style>
