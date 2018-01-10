@@ -17,8 +17,11 @@
 	export default{
 		methods:{
 			add:()=>{
-
-				new oDemo().$mount('#test')
+				new oDemo({
+					propsData:{
+						src:"http://pic29.photophoto.cn/20131204/0034034499213463_b.jpg"
+					}
+				}).$mount('#test')
 			}
 		}
 
