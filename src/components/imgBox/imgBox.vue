@@ -1,5 +1,5 @@
 <template>
-	<div id="imgBox" :class="boxClassName" :style="sty" @mouseover="toolShow()" @mouseout="toolHide()">
+	<div id="imgBox" :class="boxClassName" @mouseover="toolShow()" @mouseout="toolHide()">
 		<div class="imgTool" v-if="isToolShow">
 			<ul>
 				<li>
@@ -50,9 +50,6 @@
 				boxClassName:"imgBox-small",
 				isToolShow:false,
 				url:'',
-				sty:{
-
-				}
 			}
 		},
 		created(){
@@ -92,6 +89,9 @@
 	#imgBox img{
 		width: 100%;height: 100%
 	}
+	#imgBox:hover{
+		border: 2px dashed red;
+	}
 	.imgBox-small{
 		width: 200px;height: 200px;background: #eee;overflow: hidden;
 		padding: 0;margin: 0;
@@ -121,8 +121,10 @@
 	}
 	.imgTool ul li{
 		color:#eee;
-		padding: 5px;
 		float: left;
+	}
+	.imgTool ul li span{
+		padding: 5px
 	}
 	.imgTool ul li:hover{
 		background: #eee;color:#333;
