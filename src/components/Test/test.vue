@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 	import Vue from 'vue';
-	import demo from '../imgBox/imgBox.vue';
+	import demo from '../codeShow/codeShow.vue';
 	let oDemo=Vue.extend(demo);
 
 	export default{
@@ -19,7 +19,7 @@
 			add:()=>{
 				new oDemo({
 					propsData:{
-						src:"http://pic29.photophoto.cn/20131204/0034034499213463_b.jpg"
+						
 					}
 				}).$mount('#test')
 			}
