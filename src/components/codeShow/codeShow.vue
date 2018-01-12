@@ -1,9 +1,11 @@
 <template>
 	<div id="codeShow">
 		<input type="button" name="" value="house" @click="changeColor()">
-		<pre><code class="language-css">
-			{{code}}
-		</code></pre>
+<pre class="language-css">
+<code class="language-css" v-html='code'>
+	
+</code>
+</pre>
 	</div>
 </template>
 
@@ -21,9 +23,10 @@
 		},
 		methods:{
 			changeColor(){
-				var cd="<html><h3>fdsf</h3></html>";
-				var html = Prism.highlight(cd, Prism.languages.javascript);
+				var cd=".hello{background:#999}";
+				var html = Prism.highlight(cd, Prism.languages.css);
 				this.code=html;
+				console.log(html);
 			},
 		}
 	}
