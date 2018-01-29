@@ -48,7 +48,7 @@
 		props:{
 			URL:{
 				type:String,
-				default:"null",
+				default:"http://dev.cc:80/imgUpload",
 			},
 		},
 		created:function(){

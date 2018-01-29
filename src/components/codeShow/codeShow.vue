@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
 	import Prism from 'prismjs';
-	import domFunc from './domFunc.js';
+	
 	export default{
 		data(){
 			return{
