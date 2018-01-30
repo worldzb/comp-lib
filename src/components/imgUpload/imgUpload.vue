@@ -43,6 +43,7 @@
 				uploadUrl:'',//图片上传地址
 				image:'',//图片预览src
 				testString:'lalal',//测试字符串
+				resultURL:'',
 			}
 		},
 		props:{
@@ -68,13 +69,14 @@
 						context:'canvas-img',
 						multiple:0.04,
 					});
+					this.drawImg.drawFill();
+					//事件委托
+					this.drawImg.eventUpdate=()=>{
+						that.image=that.drawImg.rtImageData();//获取canvas数据
+					}
+					//this.image=this.drawImg.rtImageData();
 				}
-				this.drawImg.drawFill();
-				//事件委托
-				this.drawImg.eventUpdate=()=>{
-					that.image=that.drawImg.rtImageData();//获取canvas数据
-				}
-				//this.image=this.drawImg.rtImageData();
+				
 				this.isFileSelect=true;
 			},
 			//裁切压缩图上传
@@ -90,7 +92,12 @@
 				}).then((res)=>{
 					that.isUploading=false;
 					that.$emit('uploadend',res);
-					console.log(res);
+					if(res){
+						that.drawImg='';
+						that.isFileSelect=false;
+					}else{
+						console.error('上传出错');
+					}
 				});
 			},
 			//原图上传
@@ -104,9 +111,14 @@
 					this.isUploading2=false;
 					//var red=eval(res.body);
 					that.$emit('uploadend',res);
-					console.log(res);
+					if(res){
+						that.drawImg='';
+						that.isFileSelect=false;
+					}else{
+						console.error('上传出错');
+					}
 				});
-			}
+			},
 		}
 	}
 
